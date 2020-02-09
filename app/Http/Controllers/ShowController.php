@@ -23,7 +23,7 @@ class ShowController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -34,7 +34,15 @@ class ShowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'show_name' => 'required|max:255',
+            'genre' => 'required|max:255',
+            'imdb_rating' => 'required|numeric',
+            'lead_actor' => 'required|max:255'
+        ]);
+        $show = Show::create($validateData);
+
+        return redirect('/shows')->with('success', 'Show is successfuly saved');
     }
 
     /**
