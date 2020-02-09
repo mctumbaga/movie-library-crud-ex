@@ -67,7 +67,9 @@ class ShowController extends Controller
      */
     public function edit($id)
     {
-        //
+        $show = Show::findOrFail($id);
+
+        return view('edit', compact('show'));
     }
 
     /**
@@ -79,7 +81,15 @@ class ShowController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'show_name' => 'required|max:255',
+            'genre' => 'required|max:255',
+            'imdb_rating' => 'required|numeric',
+            'lead_actor' => 'required|max:255',
+        ]);
+        Show::whereId($id)->update($validatedData);
+
+        return redirect('/shows')->with('success', 'Show is successfully updated');
     }
 
     /**
