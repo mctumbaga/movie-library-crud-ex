@@ -100,6 +100,9 @@ class ShowController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $show = Show::findOrFail($id);
+        $show->delete();
+
+        return redirect('/shows')->with('success', 'Show is successfully deleted');
     }
 }
