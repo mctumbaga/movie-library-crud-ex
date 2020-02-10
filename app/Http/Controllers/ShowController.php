@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Show;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ShowController extends Controller
 {
@@ -102,6 +103,8 @@ class ShowController extends Controller
     {
         $show = Show::findOrFail($id);
         $show->delete();
+
+        //alert()->question('Are you sure?','You won\'t be able to revert this!')->showCancelButton('Cancel', '#aaa');
 
         return redirect('/shows')->with('success', 'Show is successfully deleted');
     }
