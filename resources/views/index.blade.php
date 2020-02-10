@@ -7,9 +7,9 @@
   }
 </style>
 <div class="uper">
-  @if(session()->get('success'))
+  @if(session()->get('success_message'))
     <div class="alert alert-success">
-      {{ session()->get('success') }}  
+      {{ session()->get('success_message') }}  
     </div><br />
   @endif
   <table class="table table-striped">
@@ -44,4 +44,9 @@
     </tbody>
   </table>
 <div>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      {{ $shows->links() }}
+    </div>
+  </div>
 @endsection

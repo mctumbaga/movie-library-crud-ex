@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Show;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class ShowController extends Controller
 {
@@ -15,8 +16,10 @@ class ShowController extends Controller
      */
     public function index()
     {
-        $shows = Show::all();
+        // $shows = Show::all();
 
+        // return view('index', compact('shows'));
+        $shows = DB::table('shows')->paginate(7);
         return view('index', compact('shows'));
     }
 
@@ -46,7 +49,7 @@ class ShowController extends Controller
         ]);
         $show = Show::create($validateData);
 
-        return redirect('/shows')->with('success', 'Show is successfuly saved');
+        return redirect('/shows')->with('success_message', 'Show is successfuly saved');
     }
 
     /**
@@ -90,7 +93,7 @@ class ShowController extends Controller
         ]);
         Show::whereId($id)->update($validatedData);
 
-        return redirect('/shows')->with('success', 'Show is successfully updated');
+        return redirect('/shows')->with('success_message', 'Show is successfully updated');
     }
 
     /**
@@ -104,8 +107,6 @@ class ShowController extends Controller
         $show = Show::findOrFail($id);
         $show->delete();
 
-        //alert()->question('Are you sure?','You won\'t be able to revert this!')->showCancelButton('Cancel', '#aaa');
-
-        return redirect('/shows')->with('success', 'Show is successfully deleted');
+        return redirect('/shows')->with('success_message', 'Show is successfully deleted');
     }
 }
